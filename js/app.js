@@ -1,11 +1,12 @@
 // Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+class Enemy {
+    constructor(x, y, speed) {
+        this.x = x;
+        this.y = y - 15; // Subtracted 15px to center sprite on game tile
+        this.xMove = 101;
+        this.speed = speed;
+        this.sprite = 'images/enemy-bug.png';
+    }
 };
 
 // Update the enemy's position, required method for game
@@ -31,6 +32,8 @@ class Hero {
         this.y = 400;
         this.xMove = 101;
         this.yMove = 83;
+        this.xMax = this.xMove * 4;
+        this.yMax = (this.yMove * 5) - 15; // Subtracted 15px to center sprite on game tile
         this.sprite = 'images/char-boy.png';
     }
 };
@@ -40,25 +43,28 @@ Hero.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// This checks player x & y coordinates on keyPress so sprite stays within the 5x6 grid
-// If grid size changes, console.log(this.x); to determine new '&& this.x <' parameter
+// This checks player x & y coordinates on keyPress so sprite stays within the gameboard
 Hero.prototype.handleInput = function(keyPress) {
     if (keyPress === 'left' && this.x > 0) {
         this.x -= this.xMove;
     }
-    if (keyPress === 'right' && this.x < 400) {
+    if (keyPress === 'right' && this.x < this.xMax) {
         this.x += this.xMove;
     }
     if (keyPress === 'up' && this.y > 0) {
         this.y -= this.yMove;
     }
-    if (keyPress === 'down' && this.y < 400) {
+    if (keyPress === 'down' && this.y < this.yMax) {
         this.y += this.yMove;
     }
 };
 
 // This Instantiates player & enemy objects
 const player = new Hero();
+
+const bug1 = new Enemy(0, 0, 200);
+const allEnemies = [];
+allEnemies.push(bug1);
 
 // This listens & sends keypresses to player.handleInput() method
 document.addEventListener('keyup', function(e) {
