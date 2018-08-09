@@ -1,31 +1,32 @@
-// Enemies our player must avoid
+// This class sets enemy attributes, y argument determines which row (1-4) enemy will spawn
 class Enemy {
-    constructor(x, y, speed) {
-        this.x = x;
-        this.y = y - 15; // Subtracted 15px to center sprite on game tile
+    constructor(y) {
+        this.x = -101; // starts all enemies off-screen
+        this.y = (y * 83) - 15; // Subtracted 15px to center sprite on game tile
         this.xMove = 101;
-        this.speed = speed;
+        this.speed = Math.floor((Math.random() * 300) + 100);
         this.sprite = 'images/enemy-bug.png';
     }
 };
 
-// Update the enemy's position, required method for game
+// This function randomly sets enemy speed & resets enemy position
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+    if (this.x < this.xMove * 5) {
+        this.x += this.speed * dt;
+    } else {
+        setTimeout(() => {
+            this.x = -120;
+        }, 100);
+    }
 };
 
-// This renders the enemy sprites to simulate movement
+// This function renders the enemy sprites
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
+// This class sets the player starting position and dictates distance between moves
 class Hero {
     constructor() {
         this.x = 202;
@@ -38,7 +39,7 @@ class Hero {
     }
 };
 
-// This renders the player sprite to simulate movement
+// This function renders the player sprite
 Hero.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -62,9 +63,14 @@ Hero.prototype.handleInput = function(keyPress) {
 // This Instantiates player & enemy objects
 const player = new Hero();
 
-const bug1 = new Enemy(0, 0, 200);
 const allEnemies = [];
-allEnemies.push(bug1);
+const bug1 = new Enemy(1);
+const bug2 = new Enemy(2);
+const bug3 = new Enemy(3);
+const bug4 = new Enemy(4);
+
+// This pushes bug enemies into the allEnemies array;
+allEnemies.push(bug1, bug2, bug3, bug4);
 
 // This listens & sends keypresses to player.handleInput() method
 document.addEventListener('keyup', function(e) {
