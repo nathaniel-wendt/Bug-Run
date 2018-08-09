@@ -16,7 +16,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 };
 
-// Draw the enemy on the screen, required method for game
+// This renders the enemy sprites to simulate movement
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -25,15 +25,42 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+class Hero {
+    constructor() {
+        this.x = 202;
+        this.y = 400;
+        this.xMove = 101;
+        this.yMove = 83;
+        this.sprite = 'images/char-boy.png';
+    }
+};
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+// This renders the player sprite to simulate movement
+Hero.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
+// This checks player x & y coordinates on keyPress so sprite stays within the 5x6 grid
+// If grid size changes, console.log(this.x); to determine new '&& this.x <' parameter
+Hero.prototype.handleInput = function(keyPress) {
+    if (keyPress === 'left' && this.x > 0) {
+        this.x -= this.xMove;
+    }
+    if (keyPress === 'right' && this.x < 400) {
+        this.x += this.xMove;
+    }
+    if (keyPress === 'up' && this.y > 0) {
+        this.y -= this.yMove;
+    }
+    if (keyPress === 'down' && this.y < 400) {
+        this.y += this.yMove;
+    }
+};
 
+// This Instantiates player & enemy objects
+const player = new Hero();
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens & sends keypresses to player.handleInput() method
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',

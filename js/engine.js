@@ -90,10 +90,10 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
-            enemy.update(dt);
-        });
-        player.update();
+//        allEnemies.forEach(function(enemy) {
+//            enemy.update(dt);
+//        });
+//        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -107,12 +107,12 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/stone-block.png',   // Top row is stone
+                'images/grass-block.png',   // Row 1 of 4 of grass
+                'images/grass-block.png',   // Row 2 of 4 of grass
+                'images/grass-block.png',   // Row 3 of 4 of grass
+                'images/grass-block.png',   // Row 4 of 4 of grass
+                'images/stone-block.png'    // Row 1 of 1 of stone
             ],
             numRows = 6,
             numCols = 5,
@@ -149,9 +149,9 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
-        });
+//        allEnemies.forEach(function(enemy) {
+//            enemy.render();
+//        });
 
         player.render();
     }
