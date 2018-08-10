@@ -7,24 +7,22 @@ class Enemy {
         this.speed = Math.floor((Math.random() * 200) + 100);
         this.sprite = 'images/enemy-bug.png';
     }
-};
 
-// This function randomly sets enemy speed & resets enemy position
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    if (this.x < this.xMove * 5) {
-        this.x += this.speed * dt;
-    } else {
-        setTimeout(() => {
-            this.x = -120;
-            this.speed = Math.floor((Math.random() * 200) + 100);
-        }, 100);
+    // This function renders the enemy sprites
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
-};
 
-// This function renders the enemy sprites
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    update(dt) {
+        if (this.x < this.xMove * 5) {
+            this.x += this.speed * dt;
+        } else {
+            setTimeout(() => {
+                this.x = -120;
+                this.speed = Math.floor((Math.random() * 200) + 100);
+            }, 100);
+        }
+    }
 };
 
 // This class sets the player starting position and dictates distance between moves
@@ -39,43 +37,58 @@ class Hero {
         this.sprite = 'images/char-boy.png';
         this.resetCount = 0;
     }
-};
 
-// This function triggers player.reset(); if Hero and Enemy come within 40px on x or y axis
-Hero.prototype.update = function() {
-    for(let enemy of allEnemies) {
-        if ((enemy.x >= this.x - 40 && enemy.x <= this.x + 40) && 
-            (enemy.y >= this.y - 40 && enemy.y <= this.y + 40)) {
-                this.reset();
-            }
+    // This function renders the player sprite
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+
+    // This checks player x & y coordinates on KeyPress so sprite stays within the gameboard
+    handleInput(keyPress) {
+        if (keyPress === 'left' && this.x > 0) {
+            this.x -= this.xMove;
+        }
+        if (keyPress === 'right' && this.x < this.xMax) {
+            this.x += this.xMove;
+        }
+        if (keyPress === 'up' && this.y > 0) {
+            this.y -= this.yMove;
+        }
+        if (keyPress === 'down' && this.y < this.yMax) {
+            this.y += this.yMove;
         }
     }
 
-// This function renders the player sprite
-Hero.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+    // This function triggers player.reset(); if Hero and Enemy come within 40px on x or y axis
+    update() {
+        for(let enemy of allEnemies) {
+            if ((enemy.x >= this.x - 40 && enemy.x <= this.x + 40) && 
+                (enemy.y >= this.y - 40 && enemy.y <= this.y + 40)) {
+                    this.reset();
+                }
+            }
+        if (this.y === -15) {
+            console.log('winner!');
+        }
+    }
 
-// This checks player x & y coordinates on keyPress so sprite stays within the gameboard
-Hero.prototype.handleInput = function(keyPress) {
-    if (keyPress === 'left' && this.x > 0) {
-        this.x -= this.xMove;
-    }
-    if (keyPress === 'right' && this.x < this.xMax) {
-        this.x += this.xMove;
-    }
-    if (keyPress === 'up' && this.y > 0) {
-        this.y -= this.yMove;
-    }
-    if (keyPress === 'down' && this.y < this.yMax) {
-        this.y += this.yMove;
+    reset() {
+        this.x = 202;
+        this.y = 400;
+        if (this.resetCount === 0) {
+            this.sprite = 'images/char-boy-hurt1.png';
+            this.resetCount += 1;
+        }
+        else if (this.resetCount === 1) {
+            this.sprite = 'images/char-boy-hurt2.png';
+            this.resetCount += 1;
+        } else {
+            alert('Game Over!');
+            this.sprite = 'images/char-boy.png';
+            this.resetCount = 0;
+        }  
     }
 };
-
-Hero.prototype.reset = function() {
-    this.x = 202;
-    this.y = 400;
-}
 
 // This Instantiates player & enemy objects
 const player = new Hero();
