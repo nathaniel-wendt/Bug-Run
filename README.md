@@ -2,11 +2,11 @@
 
 ## Description
 
-Welcome to the Bug Run JavaScript Game!  This was project 3 of Udacity's Front-End Web Developer Nanodegree Program.  I was provided with the game engine and assets (see: initial commit).  From there I had to research and build a complete game using ES6 OOP Classes.
+Welcome to the Bug Run JavaScript Game!  This was project 3 of Udacity's Front-End Web Developer Nanodegree Program.  I was provided with the game engine and assets (see: initial commit).  From there I had to research and build a complete game using ES6 OOP.
 
 ## Installation
 
-Download or close the project from this repository- then open the 'index.html' in your browser of choice and start playing!
+Download or clone the project from this repository- then open the 'index.html' in your browser of choice and start playing!
 
 ## How to Play
 
