@@ -30,9 +30,9 @@ class Enemy {
 class Hero {
     constructor() {
         this.x = 202;
-        this.y = 566;
-        this.xMove = 101;
-        this.yMove = 83;
+        this.y = 566; // starts player on bottom most time (safe from enemies)
+        this.xMove = 101; // horizontal distance from the middle of 1 block to another
+        this.yMove = 83; // vertical distance from the middle of 1 block to another
         this.xMax = this.xMove * 4;
         this.yMax = (this.yMove * 7) - 15; // Subtracted 15px to center sprite on game tile
         this.sprite = 'images/char-boy.png';
@@ -61,7 +61,7 @@ class Hero {
         }
     }
 
-    // this triggers player.reset(); if Hero and Enemy come within 40px on x or y axis
+    // this triggers player.reset(); if Hero and Enemy come within 40px on either x or y axis
     update() {
         for(let enemy of allEnemies) {
             if ((enemy.x >= this.x - 40 && enemy.x <= this.x + 40) && 
