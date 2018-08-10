@@ -1,6 +1,20 @@
-frontend-nanodegree-arcade-game
-===============================
+# Bug Run!
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+## Description
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+Welcome to the Bug Run JavaScript Game!  This was project 3 of Udacity's Front-End Web Developer Nanodegree Program.  I was provided with the game engine and assets (see: initial commit).  From there I had to research and build a complete game using ES6 OOP Classes.
+
+## Installation
+
+Download or close the project from this repository- then open the 'index.html' in your browser of choice and start playing!
+
+## How to Play
+
+All movement is done with the arrow keys.  Your character starts at the bottom of the screen and you have 3 chances to get your character to the top of the pasture without colliding with a bug to win the game!<br />
+
+If you do collide with a bug your character will be sent back to the starting position on the board, looking a little worse for wear.
+
+## Project Features
+• Game tracks number of collisions, changing the character model slightly each time.<br />
+• Game resets either after the 3rd collision, or when the game is won.<br />
+• Every enemy has a speed that randomizes on every pass so no two games are the same.
