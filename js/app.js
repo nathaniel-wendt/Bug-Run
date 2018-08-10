@@ -1,4 +1,4 @@
-// this class sets enemy attributes, y argument determines which row (1-4) enemy will spawn
+// this class sets enemy attributes, y argument determines which row (1-6) enemy will spawn
 class Enemy {
     constructor(y) {
         this.x = -101; // starts all enemies off-screen
@@ -30,11 +30,11 @@ class Enemy {
 class Hero {
     constructor() {
         this.x = 202;
-        this.y = 400;
+        this.y = 566;
         this.xMove = 101;
         this.yMove = 83;
         this.xMax = this.xMove * 4;
-        this.yMax = (this.yMove * 5) - 15; // Subtracted 15px to center sprite on game tile
+        this.yMax = (this.yMove * 7) - 15; // Subtracted 15px to center sprite on game tile
         this.sprite = 'images/char-boy.png';
         this.hitCount = 0;
         this.winner = false;
@@ -82,7 +82,7 @@ class Hero {
     // this returns player to bottom middle square and updates game status
     reset() {
         this.x = 202;
-        this.y = 400;
+        this.y = 566;
         // if player made it across, reset sprite, hitCount, and winner flag to false
         if (this.winner === true) {
             alert('You Won!');
@@ -116,9 +116,14 @@ const bug1 = new Enemy(1);
 const bug2 = new Enemy(2);
 const bug3 = new Enemy(3);
 const bug4 = new Enemy(4);
+const bug5 = new Enemy(5);
+const bug6 = new Enemy(6);
+const bug7 = new Enemy(1);
+const bug8 = new Enemy(3);
+const bug9 = new Enemy(5);
 
 // this pushes bug enemies into the allEnemies array;
-allEnemies.push(bug1, bug2, bug3, bug4);
+allEnemies.push(bug1, bug2, bug3, bug4, bug5, bug6, bug7, bug8, bug9);
 
 // this listens & sends keypresses to player.handleInput() method
 document.addEventListener('keyup', function(e) {
