@@ -4,7 +4,7 @@ class Enemy {
         this.x = -101; // starts all enemies off-screen
         this.y = (y * 83) - 15; // Subtracted 15px to center sprite on game tile
         this.xMove = 101;
-        this.speed = Math.floor((Math.random() * 300) + 100);
+        this.speed = Math.floor((Math.random() * 200) + 100);
         this.sprite = 'images/enemy-bug.png';
     }
 };
@@ -17,6 +17,7 @@ Enemy.prototype.update = function(dt) {
     } else {
         setTimeout(() => {
             this.x = -120;
+            this.speed = Math.floor((Math.random() * 200) + 100);
         }, 100);
     }
 };
@@ -38,6 +39,15 @@ class Hero {
         this.sprite = 'images/char-boy.png';
     }
 };
+
+// This function checks for collision between Hero and Enemies
+Hero.prototype.update = function() {
+    for(let enemy of allEnemies) {
+        if (this.y === enemy.y && (enemy.x + enemy.xMove/2 > this.x && enemy.x < this.x + this.xMove/2)) {
+            this.sprite = 'images/char-boy-hurt1.png';
+        }
+    }
+}
 
 // This function renders the player sprite
 Hero.prototype.render = function() {
