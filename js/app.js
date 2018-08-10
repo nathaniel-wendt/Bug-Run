@@ -37,17 +37,19 @@ class Hero {
         this.xMax = this.xMove * 4;
         this.yMax = (this.yMove * 5) - 15; // Subtracted 15px to center sprite on game tile
         this.sprite = 'images/char-boy.png';
+        this.resetCount = 0;
     }
 };
 
-// This function checks for collision between Hero and Enemies
+// This function triggers player.reset(); if Hero and Enemy come within 40px on x or y axis
 Hero.prototype.update = function() {
     for(let enemy of allEnemies) {
-        if (this.y === enemy.y && (enemy.x + enemy.xMove/2 > this.x && enemy.x < this.x + this.xMove/2)) {
-            this.sprite = 'images/char-boy-hurt1.png';
+        if ((enemy.x >= this.x - 40 && enemy.x <= this.x + 40) && 
+            (enemy.y >= this.y - 40 && enemy.y <= this.y + 40)) {
+                this.reset();
+            }
         }
     }
-}
 
 // This function renders the player sprite
 Hero.prototype.render = function() {
@@ -69,6 +71,11 @@ Hero.prototype.handleInput = function(keyPress) {
         this.y += this.yMove;
     }
 };
+
+Hero.prototype.reset = function() {
+    this.x = 202;
+    this.y = 400;
+}
 
 // This Instantiates player & enemy objects
 const player = new Hero();
