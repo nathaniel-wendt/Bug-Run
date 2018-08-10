@@ -1,3 +1,5 @@
+"use strict";
+
 // this class sets enemy attributes, y argument determines which row (1-6) enemy will spawn
 class Enemy {
     constructor(y) {
@@ -29,8 +31,7 @@ class Enemy {
 // this class sets the player starting position and dictates distance between moves
 class Hero {
     constructor() {
-        this.x = 202;
-        this.y = 566; // starts player on bottom most time (safe from enemies)
+        this.resetPosition();
         this.xMove = 101; // horizontal distance from the middle of 1 block to another
         this.yMove = 83; // vertical distance from the middle of 1 block to another
         this.xMax = this.xMove * 4;
@@ -61,11 +62,11 @@ class Hero {
         }
     }
 
-    // this triggers player.reset(); if Hero and Enemy come within 40px on either x or y axis
+    // this triggers player.reset(); if Hero and Enemy come within 60px on either x or y axis
     update() {
         for(let enemy of allEnemies) {
-            if ((enemy.x >= this.x - 40 && enemy.x <= this.x + 40) && 
-                (enemy.y >= this.y - 40 && enemy.y <= this.y + 40)) {
+            if ((enemy.x >= this.x - 60 && enemy.x <= this.x + 60) && 
+                (enemy.y >= this.y - 60 && enemy.y <= this.y + 60)) {
                     this.reset();
                 }
             }
@@ -79,10 +80,9 @@ class Hero {
         }
     }
 
-    // this returns player to bottom middle square and updates game status
+    // this uses resetPosition(); to return player to bottom of screen then updates game status
     reset() {
-        this.x = 202;
-        this.y = 566;
+        this.resetPosition();
         // if player made it across, reset sprite, hitCount, and winner flag to false
         if (this.winner === true) {
             alert('You Won!');
@@ -106,24 +106,29 @@ class Hero {
             this.hitCount = 0;
         }  
     }
+    
+    // this resets player position to bottom most tile where it is safe from enemies
+    resetPosition() {
+        this.x = 202;
+        this.y = 566;
+    }
 };
 
-// this Instantiates player & enemy objects
+// this Instantiates player object
 const player = new Hero();
 
-const allEnemies = [];
-const bug1 = new Enemy(1);
-const bug2 = new Enemy(2);
-const bug3 = new Enemy(3);
-const bug4 = new Enemy(4);
-const bug5 = new Enemy(5);
-const bug6 = new Enemy(6);
-const bug7 = new Enemy(1);
-const bug8 = new Enemy(3);
-const bug9 = new Enemy(5);
-
-// this pushes bug enemies into the allEnemies array;
-allEnemies.push(bug1, bug2, bug3, bug4, bug5, bug6, bug7, bug8, bug9);
+// this array holds all rendered enemies (# indicicates which cell (1-6) enemy will spawn)
+const allEnemies = [
+    new Enemy(1),
+    new Enemy(2),
+    new Enemy(3),
+    new Enemy(4),
+    new Enemy(5),
+    new Enemy(6),
+    new Enemy(1),
+    new Enemy(3),
+    new Enemy(5),
+];
 
 // this listens & sends keypresses to player.handleInput() method
 document.addEventListener('keyup', function(e) {
